@@ -1,8 +1,8 @@
-# NAME OF THE APP
+# TerraGreen
 
 ## About
 
-This app is an API.
+This app is the API Interface of the app TerraGreen.
 
 ## How to run the server
 
