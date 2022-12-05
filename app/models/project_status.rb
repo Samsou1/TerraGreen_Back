@@ -1,3 +1,7 @@
-class ProjectStatus < ApplicationRecord*
-  has_many :projects, class_name: "project", foreign_key: "reference_id"
+class ProjectStatus < ApplicationRecord
+  validates :name, presence: true
+  validates :name,
+  length: {
+    minimum: 2
+  }, allow_nil: false
 end
