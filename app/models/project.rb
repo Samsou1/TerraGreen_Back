@@ -2,7 +2,7 @@ class Project < ApplicationRecord
   belongs_to :project_status
   belongs_to :region
   belongs_to :country
-  belongs_to :user, class_name: "user", foreign_key: "user_id"
+  belongs_to :user
   validates :title, :content, :user, :content, :region, :country, :project_status, presence: true
   validates :title,
   length: {
