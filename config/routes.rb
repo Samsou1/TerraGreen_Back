@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  resources :comments
+  resources :likes
+  resources :notifications
+  resources :project_registrations
+  resources :projects
+  resources :project_statuses
+  resources :regions
+  resources :countries
   devise_for :users,
              controllers: {
                  sessions: 'users/sessions',
