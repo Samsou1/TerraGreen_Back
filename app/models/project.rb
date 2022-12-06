@@ -6,10 +6,10 @@ class Project < ApplicationRecord
   validates :title, :content, :user, :content, :region, :country, :project_status, presence: true
   validates :title,
   length: {
-    minimum: 5
+    minimum: 2
   }, allow_nil: false
   validates :content,
   length: {
-    minimum: 10
+    minimum: 5
   }, allow_nil: false
 end
