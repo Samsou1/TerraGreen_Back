@@ -19,7 +19,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1
   def show
-    render json: @project
+    render json: {project: @project, country:@project.country.name, region: @project.region.name, status: @project.project_status.name}
   end
 
   # POST /projects
@@ -39,7 +39,10 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   def update
     if @project.user_id == current_user.id || current_user.admin 
-      if @project.update(project_params)
+      country_id = Country.find_by(name: params[:project][:country]).id
+      region_id = Region.find_by(name: params[:project][:region]).id
+      project_status_id = ProjectStatus.find_by(name: params[:project][:project_status]).id
+      if @project.update(project_params) && @project.update(country_id:country_id, region_id:region_id, project_status_id:project_status_id)
         render json: @project
       else
         render json: @project.errors, status: :unprocessable_entity
@@ -62,6 +65,6 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.require(:project).permit(:title, :content, :project_status_id, :date, :address, :city, :postal_code, :GPS, :region_id, :country_id)
+      params.require(:project).except(:region, :country, :project_status).permit(:title, :content, :project_status_id, :date, :address, :city, :postal_code, :GPS, :region_id, :country_id)
     end
 end
