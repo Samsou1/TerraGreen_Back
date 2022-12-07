@@ -3,6 +3,8 @@ class Project < ApplicationRecord
   belongs_to :region
   belongs_to :country
   belongs_to :user
+  has_many :comments
+  has_many :likes
   validates :title, :content, :user, :content, :region, :country, :project_status, presence: true
   validates :title,
   length: {

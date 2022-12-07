@@ -19,7 +19,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1
   def show
-    render json: {project: @project, country:@project.country.name, region: @project.region.name, status: @project.project_status.name}
+    render json: {project: @project, country:@project.country.name, region: @project.region.name, status: @project.project_status.name, comments: @project.comments.includes(:user).select('id, content, user, user_id'), likes: @project.likes.select('id, user_id')}
   end
 
   # POST /projects
