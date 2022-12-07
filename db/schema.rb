@@ -112,8 +112,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_05_141329) do
     t.bigint "region_id"
     t.bigint "country_id"
     t.text "description"
-    t.boolean "admin"
-    t.boolean "notification_subscription"
+    t.boolean "admin", default: false
+    t.boolean "notification_subscription", default: false
     t.index ["country_id"], name: "index_users_on_country_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["region_id"], name: "index_users_on_region_id"

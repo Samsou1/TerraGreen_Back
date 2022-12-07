@@ -3,7 +3,13 @@ class RegionsController < ApplicationController
 
   # GET /regions
   def index
-    @regions = Region.all
+    puts params
+    if params[:search_term]
+      country_id = Country.find_by(name: params[:search_term]).id
+      @regions = Region.where(country_id: country_id)
+    else
+      @regions = Region.all
+    end
 
     render json: @regions
   end

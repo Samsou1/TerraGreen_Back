@@ -3,7 +3,7 @@ class CountriesController < ApplicationController
 
   # GET /countries
   def index
-    @countries = Country.all
+    @countries = Country.where(active:true)
 
     render json: @countries
   end
