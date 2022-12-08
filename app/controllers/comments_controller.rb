@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[ show update destroy ]
+  before_action :authenticate_user!
 
   # GET /comments
   def index
@@ -15,12 +16,16 @@ class CommentsController < ApplicationController
 
   # POST /comments
   def create
-    @comment = Comment.new(comment_params)
-
-    if @comment.save
-      render json: @comment, status: :created, location: @comment
+    if current_user
+      @comment = Comment.new(comment_params)
+      @comment.user_id = current_user.id
+      if @comment.save
+        render json: @comment, status: :created, location: @comment
+      else
+        render json: @comment.errors, status: :unprocessable_entity
+      end
     else
-      render json: @comment.errors, status: :unprocessable_entity
+      render json: {message: 'You are not logged in'}, status: :unauthorized
     end
   end
 

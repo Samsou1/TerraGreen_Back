@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :project_statuses
   resources :regions
   resources :countries
+  post '/togglelike', to: 'likes#toggle'
   devise_for :users,
              controllers: {
                  sessions: 'users/sessions',

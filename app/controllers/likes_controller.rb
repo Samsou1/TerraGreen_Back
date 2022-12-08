@@ -1,4 +1,5 @@
 class LikesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_like, only: %i[ show update destroy ]
 
   # GET /likes
@@ -6,6 +7,22 @@ class LikesController < ApplicationController
     @likes = Like.all
 
     render json: @likes
+  end
+
+  def toggle
+    puts params
+    if Like.find_by(project_id: params[:like][:project_id], user_id:current_user.id)
+      Like.find_by(project_id: params[:like][:project_id], user_id:current_user.id).destroy
+      render json: {message: 'Like destroyed'}, status: :ok
+    else
+      @like = Like.new(like_params)
+      @like.user_id = current_user.id
+      if @like.save
+        render json: {message: 'Like created'}, status: :ok
+      else
+        render json: {message: 'Something went wrong'}, status: :unprocessable_entity
+      end
+    end
   end
 
   # GET /likes/1
