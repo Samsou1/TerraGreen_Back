@@ -13,4 +13,9 @@ class Project < ApplicationRecord
   length: {
     minimum: 5
   }, allow_nil: false
+  
+  def image_url
+    Rails.application.routes.url_helpers.url_for(image) if image.attached?
+  end
+
 end
