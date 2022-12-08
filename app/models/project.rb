@@ -1,4 +1,5 @@
 class Project < ApplicationRecord
+  has_one_attached :image
   belongs_to :project_status
   belongs_to :region
   belongs_to :country
