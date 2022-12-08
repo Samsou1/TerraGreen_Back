@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :notifications
   resources :project_registrations
   resources :projects
+  get 'latest', to: "projects#latest"
   resources :project_statuses
   resources :regions
   resources :countries
