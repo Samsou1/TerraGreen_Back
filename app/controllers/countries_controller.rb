@@ -1,5 +1,6 @@
 class CountriesController < ApplicationController
   before_action :set_country, only: %i[ show update destroy ]
+  before_action :authenticate_user!, only: %i[create update destroy]
 
   # GET /countries
   def index
@@ -17,7 +18,7 @@ class CountriesController < ApplicationController
   def create
     @country = Country.new(country_params)
 
-    if @country.save
+    if current_user.admin && @country.save
       render json: @country, status: :created, location: @country
     else
       render json: @country.errors, status: :unprocessable_entity
@@ -26,7 +27,7 @@ class CountriesController < ApplicationController
 
   # PATCH/PUT /countries/1
   def update
-    if @country.update(country_params)
+    if current_user.admin && @country.update(country_params)
       render json: @country
     else
       render json: @country.errors, status: :unprocessable_entity
@@ -35,7 +36,9 @@ class CountriesController < ApplicationController
 
   # DELETE /countries/1
   def destroy
-    @country.destroy
+    if current_user.admin
+      @country.destroy
+    end
   end
 
   private
