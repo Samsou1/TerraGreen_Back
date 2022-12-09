@@ -1,32 +1,32 @@
 require 'faker'
 
-if Country.all.length == 0
-  connection = ActiveRecord::Base.connection
+# if Country.all.length == 0
+#   connection = ActiveRecord::Base.connection
 
-  country_sql = File.read('db/country.sql') # Change path and filename as necessary
-  country_statements = country_sql.split(/;$/)
-  country_statements.pop
+#   country_sql = File.read('db/country.sql') # Change path and filename as necessary
+#   country_statements = country_sql.split(/;$/)
+#   country_statements.pop
 
-  region_fr_sql = File.read('db/region_fr.sql') # Change path and filename as necessary
-  region_fr_statements = region_fr_sql.split(/;$/)
-  region_fr_statements.pop
+#   region_fr_sql = File.read('db/region_fr.sql') # Change path and filename as necessary
+#   region_fr_statements = region_fr_sql.split(/;$/)
+#   region_fr_statements.pop
 
-  region_uk_sql = File.read('db/region_uk.sql') # Change path and filename as necessary
-  region_uk_statements = region_uk_sql.split(/;$/)
-  region_uk_statements.pop
+#   region_uk_sql = File.read('db/region_uk.sql') # Change path and filename as necessary
+#   region_uk_statements = region_uk_sql.split(/;$/)
+#   region_uk_statements.pop
 
-  ActiveRecord::Base.transaction do
-    country_statements.each do |statement|
-      connection.execute(statement)
-    end
-    region_fr_statements.each do |statement|
-      connection.execute(statement)
-    end
-    region_uk_statements.each do |statement|
-      connection.execute(statement)
-    end
-  end
-end
+#   ActiveRecord::Base.transaction do
+#     country_statements.each do |statement|
+#       connection.execute(statement)
+#     end
+#     region_fr_statements.each do |statement|
+#       connection.execute(statement)
+#     end
+#     region_uk_statements.each do |statement|
+#       connection.execute(statement)
+#     end
+#   end
+# end
 
 countries = Country.where(active: true)
 
