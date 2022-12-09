@@ -6,7 +6,12 @@ class ProjectsController < ApplicationController
   def index
     if params[:search_term]
       if params[:search_term] == 'user'
-        @projects = Project.where(user_id: current_user.id)
+        if current_user
+          @projects = Project.where(user_id: current_user.id)
+        else
+          render json:{message: 'You are not logged in'}, status: :unprocessable_entity
+          return
+        end
       else
         @projects = Project.where('lower(city) LIKE :prefix', prefix: "#{params[:search_term].downcase}%")
       end
@@ -19,7 +24,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1
   def show
-    render json: {project: @project, country:@project.country.name, region: @project.region.name, status: @project.project_status.name}
+    render json: {project: @project, country:@project.country.name, region: @project.region.name, status: @project.project_status.name, comments: @project.comments.includes(:user).select('id, content, user, user_id, created_at'), likes: @project.likes.select('id, user_id')}
   end
 
   # POST /projects
