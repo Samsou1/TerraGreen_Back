@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
       @projects = Project.all
     end
 
-    render json: @projects
+   render json: ProjectSerializer.new(@projects).serializable_hash[:data]
   end
 
   # GET /projects/1
@@ -56,10 +56,7 @@ class ProjectsController < ApplicationController
     @project.destroy
   end
 
-  def latest
-    @project = Project.last 
-    render json: ProjectSerializer.new(@project).serializable_hash[:data][:attributes]
-  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
