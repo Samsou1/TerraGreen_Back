@@ -87,3 +87,5 @@ group :development do
   gem 'rubocop-rspec', require: false
 end
 
+
+gem "jsonapi-serializer", "~> 2.2"

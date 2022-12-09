@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[ show update destroy ]
-  before_action :authenticate_user!, only: %i[create update destroy]
+  # before_action :authenticate_user!, only: %i[create update destroy]
 
   # GET /projects
   def index
@@ -19,7 +19,7 @@ class ProjectsController < ApplicationController
       @projects = Project.all
     end
 
-    render json: @projects
+   render json: ProjectSerializer.new(@projects).serializable_hash[:data]
   end
 
   # GET /projects/1
@@ -30,10 +30,9 @@ class ProjectsController < ApplicationController
   # POST /projects
   def create
     @project = Project.new(project_params)
-    @project.country_id = Country.find_by(name: params[:project][:country]).id
-    @project.region_id = Region.find_by(name: params[:project][:region]).id
-    @project.project_status_id = ProjectStatus.find_by(name: params[:project][:project_status]).id
-    @project.user_id = current_user.id
+    # @project.country_id =  Country.find_by(name: params[:project][:country]).id
+    # @project.region_id = Region.find_by(name: params[:project][:region]).id
+    # @project.user_id = current_user.id
     if @project.save
       render json: @project, status: :created, location: @project
     else
@@ -62,6 +61,8 @@ class ProjectsController < ApplicationController
     @project.destroy
   end
 
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
@@ -70,6 +71,6 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.require(:project).except(:region, :country, :project_status).permit(:title, :content, :project_status_id, :date, :address, :city, :postal_code, :GPS, :region_id, :country_id)
+      params.require(:project).except(:region, :country, :project_status).permit(:title, :content, :user_id, :project_status_id, :date, :address, :city, :postal_code, :GPS, :region_id, :country_id, :image)
     end
 end
