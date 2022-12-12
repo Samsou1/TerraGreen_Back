@@ -4,9 +4,6 @@ class ProjectsController < ApplicationController
 
   # GET /projects
   def index
-    puts '$' * 50
-    puts params
-    puts '$' * 50
     if params[:search_term]
       if params[:search_term] == 'user'
         if current_user
