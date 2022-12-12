@@ -24,6 +24,20 @@ class MembersController < ApplicationController
             }
       end
     end
+    
+    def destroy
+      @user = get_user_from_token
+      if @user
+        @user.destroy
+        render json: {
+          message: "User successfully destroyed"
+        }
+      else
+        render json: {
+              message: "Something went wrong"
+            }
+      end
+    end
   
     private
   

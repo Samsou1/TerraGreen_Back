@@ -13,6 +13,21 @@ class ProjectRegistrationsController < ApplicationController
     render json: @project_registration
   end
 
+  def toggle
+    if ProjectRegistration.find_by(project_id: params[:project_registration][:project_id], user_id:current_user.id)
+      ProjectRegistration.find_by(project_id: params[:project_registration][:project_id], user_id:current_user.id).destroy
+      render json: {message: 'Registration destroyed'}, status: :ok
+    else
+      @project_registration = ProjectRegistration.new(project_registration_params)
+      @project_registration.user_id = current_user.id
+      if @project_registration.save
+        render json: {message: 'Registration created'}, status: :ok
+      else
+        render json: {message: 'Something went wrong'}, status: :unprocessable_entity
+      end
+    end
+  end
+
   # POST /project_registrations
   def create
     @project_registration = ProjectRegistration.new(project_registration_params)
