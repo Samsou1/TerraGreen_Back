@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :regions
   resources :countries
   post '/togglelike', to: 'likes#toggle'
+  post '/toggleprojectregistration', to: 'project_registrations#toggle'
   devise_for :users,
              controllers: {
                  sessions: 'users/sessions',
@@ -15,4 +16,5 @@ Rails.application.routes.draw do
              }
   get '/member-data', to: 'members#show'
   patch '/member-update', to: 'members#update'
+  delete '/member-destroy', to: 'members#destroy'
 end

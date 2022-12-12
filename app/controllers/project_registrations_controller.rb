@@ -1,6 +1,6 @@
 class ProjectRegistrationsController < ApplicationController
   before_action :set_project_registration, only: %i[ show update destroy ]
-  before_action :authenticate_user!, only: %i[create update destroy]
+  before_action :authenticate_user!
 
   # GET /project_registrations
   def index
@@ -12,6 +12,21 @@ class ProjectRegistrationsController < ApplicationController
   # GET /project_registrations/1
   def show
     render json: @project_registration
+  end
+
+  def toggle
+    if ProjectRegistration.find_by(project_id: params[:project_registration][:project_id], user_id:current_user.id)
+      ProjectRegistration.find_by(project_id: params[:project_registration][:project_id], user_id:current_user.id).destroy
+      render json: {message: 'Registration destroyed'}, status: :ok
+    else
+      @project_registration = ProjectRegistration.new(project_registration_params)
+      @project_registration.user_id = current_user.id
+      if @project_registration.save
+        render json: {message: 'Registration created'}, status: :ok
+      else
+        render json: {message: 'Something went wrong'}, status: :unprocessable_entity
+      end
+    end
   end
 
   # POST /project_registrations

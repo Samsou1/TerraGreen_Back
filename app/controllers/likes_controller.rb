@@ -10,7 +10,6 @@ class LikesController < ApplicationController
   end
 
   def toggle
-    puts params
     if Like.find_by(project_id: params[:like][:project_id], user_id:current_user.id)
       Like.find_by(project_id: params[:like][:project_id], user_id:current_user.id).destroy
       render json: {message: 'Like destroyed'}, status: :ok
