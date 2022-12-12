@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[ show update destroy ]
-  # before_action :authenticate_user!, only: %i[create update destroy]
+  before_action :authenticate_user!, only: %i[create update destroy]
 
   # GET /projects
   def index
@@ -68,8 +68,6 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
   end
-
-
 
   private
     # Use callbacks to share common setup or constraints between actions.

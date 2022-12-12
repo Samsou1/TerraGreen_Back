@@ -4,13 +4,17 @@ namespace :fly do
   #  - changes to the filesystem made here DO get deployed
   #  - NO access to secrets, volumes, databases
   #  - Failures here prevent deployment
-  task :build => 'assets:precompile'
+  task :build
 
   # RELEASE step:
   #  - changes to the filesystem made here are DISCARDED
   #  - full access to secrets, databases
   #  - failures here prevent deployment
   task :release => 'db:migrate'
+
+  task :migrateCountries => 'db < db/country.sql'
+  task :migrateFrance => 'db < db/region_fr.sql'
+  task :migrateUK => 'db < db/region_uk.sql'
 
   # SERVER step:
   #  - changes to the filesystem made here are deployed

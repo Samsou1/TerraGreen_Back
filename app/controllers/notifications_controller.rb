@@ -1,5 +1,6 @@
 class NotificationsController < ApplicationController
   before_action :set_notification, only: %i[ show update destroy ]
+  before_action :authenticate_user!, only: %i[create update destroy]
 
   # GET /notifications
   def index
@@ -17,7 +18,7 @@ class NotificationsController < ApplicationController
   def create
     @notification = Notification.new(notification_params)
 
-    if @notification.save
+    if current_user.admin && @notification.save
       render json: @notification, status: :created, location: @notification
     else
       render json: @notification.errors, status: :unprocessable_entity
@@ -26,7 +27,7 @@ class NotificationsController < ApplicationController
 
   # PATCH/PUT /notifications/1
   def update
-    if @notification.update(notification_params)
+    if current_user.admin && @notification.update(notification_params)
       render json: @notification
     else
       render json: @notification.errors, status: :unprocessable_entity
@@ -35,7 +36,9 @@ class NotificationsController < ApplicationController
 
   # DELETE /notifications/1
   def destroy
-    @notification.destroy
+    if current_user.admin
+      @notification.destroy
+    end
   end
 
   private
