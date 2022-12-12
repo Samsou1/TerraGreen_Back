@@ -1,10 +1,10 @@
 class NotificationsController < ApplicationController
   before_action :set_notification, only: %i[ show update destroy ]
-  before_action :authenticate_user!, only: %i[create update destroy]
+  before_action :authenticate_user!
 
   # GET /notifications
   def index
-    @notifications = Notification.all
+    @notifications = Notification.where(user_id: current_user.id).reverse_order.limit(10)
 
     render json: @notifications
   end
