@@ -13,10 +13,18 @@ class ProjectsController < ApplicationController
           return
         end
       else
-        @projects = Project.where('lower(city) LIKE :prefix', prefix: "#{params[:search_term].downcase}%")
+        @regions = Region.where('lower(name) LIKE :prefix', prefix: "#{params[:search_term].downcase}%")
+        @countries = Country.where('lower(name) LIKE :prefix', prefix: "#{params[:search_term].downcase}%")
+        @projects = Project.where('lower(city) LIKE :prefix', prefix: "#{params[:search_term].downcase}%") 
+        @countries.each do |country|
+          @projects += Project.where(country_id: country.id)
+        end
+        @regions.each do |region|
+          @projects += Project.where(region_id: region.id)
+        end
       end
     else
-      @projects = Project.all
+      @projects = Project.all.distinct
     end
 
    render json: ProjectSerializer.new(@projects).serializable_hash[:data]
