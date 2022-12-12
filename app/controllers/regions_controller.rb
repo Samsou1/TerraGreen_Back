@@ -1,5 +1,6 @@
 class RegionsController < ApplicationController
   before_action :set_region, only: %i[ show update destroy ]
+  before_action :authenticate_user!, only: %i[create update destroy]
 
   # GET /regions
   def index
@@ -23,7 +24,7 @@ class RegionsController < ApplicationController
   def create
     @region = Region.new(region_params)
 
-    if @region.save
+    if current_user.admin && @region.save
       render json: @region, status: :created, location: @region
     else
       render json: @region.errors, status: :unprocessable_entity
@@ -32,7 +33,7 @@ class RegionsController < ApplicationController
 
   # PATCH/PUT /regions/1
   def update
-    if @region.update(region_params)
+    if current_user.admin && @region.update(region_params)
       render json: @region
     else
       render json: @region.errors, status: :unprocessable_entity
@@ -41,7 +42,9 @@ class RegionsController < ApplicationController
 
   # DELETE /regions/1
   def destroy
-    @region.destroy
+    if current_user.admin
+      @region.destroy
+    end
   end
 
   private
