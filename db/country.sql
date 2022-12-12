@@ -236,7 +236,7 @@ INSERT INTO countries (acronym, name, active, created_at, updated_at) VALUES ('V
 INSERT INTO countries (acronym, name, active, created_at, updated_at) VALUES ('UG', 'Uganda', false, current_timestamp, current_timestamp);
 INSERT INTO countries (acronym, name, active, created_at, updated_at) VALUES ('UA', 'Ukraine', false, current_timestamp, current_timestamp);
 INSERT INTO countries (acronym, name, active, created_at, updated_at) VALUES ('AE', 'United Arab Emirates', false, current_timestamp, current_timestamp);
-INSERT INTO countries (acronym, name, active, created_at, updated_at) VALUES ('GB', 'United Kingdom', false, current_timestamp, current_timestamp);
+INSERT INTO countries (acronym, name, active, created_at, updated_at) VALUES ('GB', 'United Kingdom', true, current_timestamp, current_timestamp);
 INSERT INTO countries (acronym, name, active, created_at, updated_at) VALUES ('US', 'United States', false, current_timestamp, current_timestamp);
 INSERT INTO countries (acronym, name, active, created_at, updated_at) VALUES ('UY', 'Uruguay', false, current_timestamp, current_timestamp);
 INSERT INTO countries (acronym, name, active, created_at, updated_at) VALUES ('UZ', 'Uzbekistan', false, current_timestamp, current_timestamp);
