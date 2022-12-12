@@ -136,7 +136,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_093626) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "username"
+    t.string "username", default: "Anonymous"
     t.bigint "region_id"
     t.bigint "country_id"
     t.text "description"
