@@ -1,5 +1,6 @@
 class ProjectRegistrationsController < ApplicationController
   before_action :set_project_registration, only: %i[ show update destroy ]
+  before_action :authenticate_user!
 
   # GET /project_registrations
   def index
