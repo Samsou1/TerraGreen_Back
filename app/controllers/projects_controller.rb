@@ -24,10 +24,10 @@ class ProjectsController < ApplicationController
         end
       end
     else
-      @projects = Project.all.distinct
+      @projects = Project.all
     end
-
-   render json: ProjectSerializer.new(@projects).serializable_hash[:data]
+    render json: ProjectSerializer.new(@projects).serializable_hash[:data]
+    
   end
 
   # GET /projects/1
@@ -38,9 +38,6 @@ class ProjectsController < ApplicationController
   # POST /projects
   def create
     @project = Project.new(project_params)
-    # @project.country_id =  Country.find_by(name: params[:project][:country]).id
-    # @project.region_id = Region.find_by(name: params[:project][:region]).id
-    # @project.user_id = current_user.id
     if @project.save
       render json: @project, status: :created, location: @project
     else
@@ -77,6 +74,6 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.require(:project).except(:region, :country, :project_status).permit(:title, :content, :user_id, :project_status_id, :date, :address, :city, :postal_code, :GPS, :region_id, :country_id, :image)
+      params.require(:project).permit(:user_id, :title, :content, :date, :address, :city, :postal_code, :project_status_id, :region_id, :country_id, :image).except(:region, :country, :project_status)
     end
 end
