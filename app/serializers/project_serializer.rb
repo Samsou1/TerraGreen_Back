@@ -1,4 +1,4 @@
 class ProjectSerializer
   include JSONAPI::Serializer
-  attributes :id, :title, :content, :project_status_id, :user_id, :date, :address, :city, :postal_code, :GPS, :region_id, :country_id,  :image_url, :updated_at
+  attributes :id, :user_id, :title, :content, :date, :address, :city, :postal_code, :project_status_id, :region_id, :country_id, :image_url
 end
