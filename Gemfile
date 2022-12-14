@@ -3,6 +3,18 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.0.4"
 
+# A fast JSON:API serializer for Ruby
+gem "jsonapi-serializer", "~> 2.2"
+
+# A library for generating fake data such as names, addresses, and phone numbers.
+gem 'faker'
+
+# Flexible authentication solution for Rails with Warden.
+gem 'devise'
+
+#JWT token authentication with devise and rails
+gem 'devise-jwt'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4"
 
@@ -34,15 +46,7 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem "rack-cors"
-
-# ~ Faker [https://github.com/faker-ruby/faker#readme]
-# For generating fake data
-gem 'faker'
-
-gem 'devise'
-gem 'devise-jwt'
-gem 'rack-cors'
+gem "rack-cors"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -86,6 +90,3 @@ group :development do
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
 end
-
-
-gem "jsonapi-serializer", "~> 2.2"
