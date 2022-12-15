@@ -24,23 +24,20 @@ class ProjectsController < ApplicationController
         end
       end
     else
-      @projects = Project.all.distinct
+      @projects = Project.all
     end
-
-   render json: ProjectSerializer.new(@projects).serializable_hash[:data]
+    render json: ProjectSerializer.new(@projects).serializable_hash[:data]
+    
   end
 
   # GET /projects/1
   def show
-    render json: {project: @project, country:@project.country.name, region: @project.region.name, status: @project.project_status.name, comments: @project.comments.includes(:user).select('id, content, user, user_id, created_at'), likes: @project.likes.select('id, user_id'), project_registrations: @project.project_registrations.select('id, user_id')}
+    render json: {project: @project, image_url: ProjectSerializer.new(@project).serializable_hash[:data][:attributes][:image_url], country:@project.country.name, region: @project.region.name, status: @project.project_status.name, comments: @project.comments.includes(:user).select('id, content, user, user_id, created_at'), likes: @project.likes.select('id, user_id'), project_registrations: @project.project_registrations.select('id, user_id')}
   end
 
   # POST /projects
   def create
     @project = Project.new(project_params)
-    # @project.country_id =  Country.find_by(name: params[:project][:country]).id
-    # @project.region_id = Region.find_by(name: params[:project][:region]).id
-    # @project.user_id = current_user.id
     if @project.save
       render json: @project, status: :created, location: @project
     else
@@ -51,10 +48,7 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   def update
     if @project.user_id == current_user.id || current_user.admin 
-      country_id = Country.find_by(name: params[:project][:country]).id
-      region_id = Region.find_by(name: params[:project][:region]).id
-      project_status_id = ProjectStatus.find_by(name: params[:project][:project_status]).id
-      if @project.update(project_params) && @project.update(country_id:country_id, region_id:region_id, project_status_id:project_status_id)
+      if @project.update(project_params)
         render json: @project
       else
         render json: @project.errors, status: :unprocessable_entity
@@ -77,6 +71,6 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.require(:project).except(:region, :country, :project_status).permit(:title, :content, :user_id, :project_status_id, :date, :address, :city, :postal_code, :GPS, :region_id, :country_id, :image)
+      params.require(:project).permit(:user_id, :title, :content, :date, :address, :city, :postal_code, :project_status_id, :region_id, :country_id, :image).except(:region, :country, :project_status)
     end
 end
