@@ -89,6 +89,6 @@ group :development do
   gem 'rubocop-faker'
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
-  gem "letter_opener", "~> 1.8" 
+  
 end
 
