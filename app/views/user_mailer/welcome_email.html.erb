@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <style>
+      * {
+          padding: 0;
+          margin: 0;
+      }
+
+      body {
+          font-family: arial, "helvetica neue", helvetica, sans-serif, serif,
+          EmojiFont;
+      }
+
+      .email {
+          height: 100%;
+          width: 100%;
+      }
+
+      table {
+          border-collapse: collapse;
+          height: 100%;
+          width: 100%;
+      }
+
+      .header {
+          background: #009DFF none no-repeat 50% 50% / contain;
+          border-top: 0;
+          border-bottom: 0;
+          padding-top: 60px;
+          padding-bottom: 60px;
+      }
+
+      h1 {
+          font-family: Helvetica;
+          font-size: 40px;
+          color: #fff;
+      }
+
+      h2 {
+          font-size: 28px;
+          color: #fff;
+          margin-top: 28px;
+      }
+
+      .content {
+          padding: 100px;
+          max-width: 600px;
+      }
+
+      h3 {
+          font-size: 22px;
+          line-height: 150%;
+          margin-bottom: 22px;
+      }
+
+      p {
+          font-size: 16px;
+          line-height: 150%;
+      }
+
+      .btn {
+          font-size: 18px;
+          padding: 1em;
+          background-color: #009DFF;
+          display: block;
+          border-collapse: separate;
+          width: fit-content;
+          border-radius: 3px;
+          text-decoration: none;
+          color: #fff;
+          margin-top: 2em;
+      }
+
+      .footer {
+          font-size: 16px;
+          padding: 2em;
+          background-color: #FFA000;
+      }
+
+      .footer a {
+          line-height: 200%;
+          text-decoration: none;
+          color: black;
+      }
+  </style>
+</head>
+
+<body>
+<div class="email">
+  <center>
+    <table align="center" border="0" cellpadding="0" cellspacing="0">
+      <tbody>
+      <tr>
+        <td class="header" align="center" valign="top">
+          <h1>Snipshare</h1>
+        </td>
+      </tr>
+      <tr>
+        <td class='content' align='center' valign='top'>
+
+          <h1>Bienvenue sur TerraGreen, <%= @user.email %></h1><br/>
+
+          <p>Nous vous remercions pour votre inscription. </p><br/>
+          <p>Vous pouvez dès à present commencer un projet Terragreen, rejoindre ou commenter ceux des autres !
+
+            ! </p><br/><br/>
+
+          <p>A très bientôt sur TerraGreen !</p><br/>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="footer" align='center' valign='bottom'>
+          <%= link_to 'Snipshare', "https://www.snipsha.re/" %>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </center>
+</div>
+</body>
+</html>
