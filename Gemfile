@@ -89,4 +89,6 @@ group :development do
   gem 'rubocop-faker'
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
+  
 end
+
