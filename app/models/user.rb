@@ -12,4 +12,9 @@ class User < ApplicationRecord
          :recoverable,
          jwt_revocation_strategy: JwtDenylist
 
+
+         def welcome_send
+          UserMailer.welcome_email(self).deliver_now
+        end
+
 end
