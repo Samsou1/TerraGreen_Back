@@ -48,6 +48,7 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   def update
     if @project.user_id == current_user.id || current_user.admin 
+      if @project.update(project_params)
         render json: @project
       else
         render json: @project.errors, status: :unprocessable_entity
@@ -63,10 +64,12 @@ class ProjectsController < ApplicationController
   end
 
   private
+    # Use callbacks to share common setup or constraints between actions.
     def set_project
       @project = Project.find(params[:id])
     end
 
+    # Only allow a list of trusted parameters through.
     def project_params
       params.require(:project).permit(:user_id, :title, :content, :date, :address, :city, :postal_code, :project_status_id, :region_id, :country_id, :image).except(:region, :country, :project_status)
     end
