@@ -4,9 +4,8 @@ class RegionsController < ApplicationController
 
   # GET /regions
   def index
-    puts params
     if params[:search_term]
-      country_id = Country.find_by(name: params[:search_term]).id
+      country_id = Country.find(params[:search_term].to_i).id
       @regions = Region.where(country_id: country_id)
     else
       @regions = Region.all
