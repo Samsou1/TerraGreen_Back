@@ -45,7 +45,7 @@ class ProjectsController < ApplicationController
     end
   end
 
-  after_create :send_notifications_of_project_creation
+  after_action :send_notifications_of_project_creation, only: [:create]
 
   # PATCH/PUT /projects/1
   def update
@@ -79,8 +79,8 @@ class ProjectsController < ApplicationController
     def send_notifications_of_project_creation
       @latest_project = Project.last
       @users = User.where(notification_subscription: true, region_id: @latest_project.region_id)
-      @user.each do |user|
-        Notifiation.create(user_id: user.id, content: 'A new project has been created in your region, please click here to check it out.',project_id: @latest_project.id)
+      @users.each do |user|
+        Notification.create(user_id: user.id, content: 'A new project has been created in your region. You should check it out.',project_id: @latest_project.id)
       end
     end
 end
