@@ -12,10 +12,6 @@ namespace :fly do
   #  - failures here prevent deployment
   task :release => 'db:migrate'
 
-  task :migrateCountries => 'db < db/country.sql'
-  task :migrateFrance => 'db < db/region_fr.sql'
-  task :migrateUK => 'db < db/region_uk.sql'
-
   # SERVER step:
   #  - changes to the filesystem made here are deployed
   #  - full access to secrets, databases

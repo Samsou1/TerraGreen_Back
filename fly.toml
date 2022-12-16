@@ -1,6 +1,6 @@
-# fly.toml file generated for terra-green on 2022-12-09T14:48:44+01:00
+# fly.toml file generated for terra-green-2 on 2022-12-16T18:16:22+01:00
 
-app = "terra-green"
+app = "terra-green-2"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
