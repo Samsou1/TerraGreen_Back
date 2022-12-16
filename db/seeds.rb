@@ -111,7 +111,6 @@ notification_subscription:true,
 description: "I'm willing to help"
 )
 
-
 users = User.all
 
 ProjectStatus.create(name: 'To plan')
@@ -120,7 +119,6 @@ ProjectStatus.create(name: 'In progress')
 ProjectStatus.create(name: 'Done')
 
 projectsStatuses = ProjectStatus.all
-
 
 Project.create(title:'Cleaning the Square of Clermont',
   content: "Hey everyone! The square has been pretty dirty lately, why wouldnt we get together and clean up this mess?",
@@ -206,7 +204,6 @@ Project.create(title:'Time is up people',
 image6 = URI.open("https://i.pinimg.com/originals/0e/47/45/0e474596096b5c9718b87ecb790f4aa4.jpg")
 Project.find(6).image.attach(io: image6, filename: "cleaning-forest-aberfoyle")
 
-
 projects = Project.all
 
 20.times do 
@@ -218,7 +215,6 @@ end
   Like.create(project_id: projects.sample.id, 
     user_id: users.sample.id)
 end
-
 
   Comment.create(project_id: projects.sample.id, 
     user_id: users.sample.id,
@@ -252,7 +248,7 @@ end
     content: 'I might be late but sure I will come')
   Comment.create(project_id: projects.sample.id, 
     user_id: users.sample.id,
-    content: 'OMH how can people be so disgusting')
+    content: 'OMG how can people be so disgusting')
   Comment.create(project_id: projects.sample.id, 
     user_id: users.sample.id,
     content: 'Sure thing!')
