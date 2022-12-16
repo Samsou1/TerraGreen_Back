@@ -45,6 +45,8 @@ class ProjectsController < ApplicationController
     end
   end
 
+  after_action :send_notifications_of_project_creation, only: [:create]
+
   # PATCH/PUT /projects/1
   def update
     if @project.user_id == current_user.id || current_user.admin 
@@ -72,5 +74,13 @@ class ProjectsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def project_params
       params.require(:project).permit(:user_id, :title, :content, :date, :address, :city, :postal_code, :project_status_id, :region_id, :country_id, :image).except(:region, :country, :project_status)
+    end
+
+    def send_notifications_of_project_creation
+      @latest_project = Project.last
+      @users = User.where(notification_subscription: true, region_id: @latest_project.region_id)
+      @users.each do |user|
+        Notification.create(user_id: user.id, content: 'A new project has been created in your region. You should check it out.',project_id: @latest_project.id)
+      end
     end
 end
