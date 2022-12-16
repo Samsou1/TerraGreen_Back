@@ -32,7 +32,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1
   def show
-    render json: {project: @project, image_url: ProjectSerializer.new(@project).serializable_hash[:data][:attributes][:image_url], country:@project.country.name, region: @project.region.name, status: @project.project_status.name, comments: @project.comments.includes(:user).select('id, content, user, user_id, created_at'), likes: @project.likes.select('id, user_id'), project_registrations: @project.project_registrations.select('id, user_id')}
+    render json: {project: @project, image_url: ProjectSerializer.new(@project).serializable_hash[:data][:attributes][:image_url], country:@project.country.name, region: @project.region.name, status: @project.project_status.name, comments: @project.comments.includes(:user).select('id, content, user, user_id, created_at'), likes: @project.likes.select('id, user_id'), project_registrations: @project.project_registrations.select('id, user_id'), user: @project.user}
   end
 
   # POST /projects
