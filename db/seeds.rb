@@ -1,7 +1,7 @@
 require 'faker'
 require 'open-uri'
 
-if Country.all.length == 0
+if Rails.env.development? && Country.all.length == 0
   connection = ActiveRecord::Base.connection
 
   country_sql = File.read('db/country.sql') # Change path and filename as necessary
