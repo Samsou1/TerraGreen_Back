@@ -4,9 +4,10 @@ class Project < ApplicationRecord
   belongs_to :region
   belongs_to :country
   belongs_to :user
-  has_many :comments
-  has_many :likes
-  has_many :project_registrations
+  has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :project_registrations, dependent: :destroy
+  has_many :notifications, dependent: :destroy
   validates :title, :content, :user, :content, :region, :country, :project_status, presence: true
   validates :title,
   length: {
